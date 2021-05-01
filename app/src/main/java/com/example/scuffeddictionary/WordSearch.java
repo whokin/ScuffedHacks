@@ -12,6 +12,8 @@ public class WordSearch extends AppCompatActivity {
 
     EditText searchWord;
     Button search;
+    String word;
+    String definition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +27,16 @@ public class WordSearch extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String word = searchWord.getText().toString();
+                word = searchWord.getText().toString();
+                definition = getDefinition(word);
                 Intent intent = new Intent(WordSearch.this, DefinitionDisplay.class);
-                intent.putExtra("SEARCH_WORD", word);
+                intent.putExtra("DEFINITION", definition);
                 startActivity(intent);
             }
         });
+    }
+
+    String getDefinition(String word){
+        return word;
     }
 }
