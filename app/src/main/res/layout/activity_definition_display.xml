@@ -45,6 +45,13 @@
         app:layout_constraintGuide_percent="0.25"/>
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/wordsearch_30_horiz_guide3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.18" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/wordsearch_45_horiz_guide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,6 +78,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.50" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/wordsearch_50_vert_guide2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
 
     <TextView
         android:id="@+id/txt_word_defndisplay"
@@ -133,4 +147,37 @@
         app:layout_constraintEnd_toStartOf="@+id/wordsearch_90_vert_guide"
         app:layout_constraintStart_toStartOf="@+id/wordsearch_10_vert_guide"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="127dp"
+        android:layout_height="75dp"
+        android:text="Learn More"
+        app:backgroundTint="#178E02"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wordsearch_90_horiz_guide" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="263dp"
+        android:layout_height="61dp"
+        app:layout_constraintBottom_toTopOf="@+id/wordsearch_30_horiz_guide3"
+        app:layout_constraintEnd_toStartOf="@+id/wordsearch_90_vert_guide"
+        app:layout_constraintStart_toStartOf="@+id/wordsearch_10_vert_guide"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/scuffeddate" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="302dp"
+        android:layout_height="88dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginRight="37dp"
+        app:layout_constraintEnd_toStartOf="@+id/button5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/scuffedcoinother"
+        tools:layout_editor_absoluteY="740dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
