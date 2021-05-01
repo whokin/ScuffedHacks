@@ -27,6 +27,7 @@ public class WordSearch extends AppCompatActivity {
                 String word = searchWord.getText().toString();
                 Intent intent = new Intent(WordSearch.this, DefinitionDisplay.class);
                 intent.putExtra("SEARCH_WORD", word);
+                startActivity(intent);
             }
         });
     }
