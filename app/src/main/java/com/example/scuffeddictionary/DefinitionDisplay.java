@@ -5,17 +5,12 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -25,6 +20,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static java.lang.String.valueOf;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class DefinitionDisplay extends AppCompatActivity {
 
@@ -55,7 +55,6 @@ public class DefinitionDisplay extends AppCompatActivity {
         public Definition(String word){
             this.word = word;
         }
-
 
         @Override
         protected void onPostExecute(Void aVoid) {
