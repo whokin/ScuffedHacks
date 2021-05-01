@@ -33,15 +33,10 @@ public class WordSearch extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 word = searchWord.getText().toString();
-                definition = getDefinition(word);
                 Intent intent = new Intent(WordSearch.this, DefinitionDisplay.class);
-                intent.putExtra("DEFINITION", definition);
+                intent.putExtra("WORD", word);
                 startActivity(intent);
             }
         });
-    }
-
-    String getDefinition(String word){
-        return word;
     }
 }
