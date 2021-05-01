@@ -65,6 +65,7 @@ public class DefinitionDisplay extends AppCompatActivity {
     private class Definition extends AsyncTask<Void, Void, Void> {
 
         String wordType;
+        String speechWord;
         String word;
 
         public Definition(String word){
@@ -83,18 +84,23 @@ public class DefinitionDisplay extends AppCompatActivity {
             String url = "https://www.merriam-webster.com/dictionary/" + word + "/";
 
             try {
-                Document doc = Jsoup.connect(url).timeout(6000).get();
+                Document doc = Jsoup.connect(url).timeout(1000).get();
 
                 //get word type
                 Elements wordTypeElement = doc.select("a.important-blue-link");
                 wordType = extractWordTypeText(wordTypeElement.toString());
-                System.out.println("WORD TYPE IN DOINBACKGROUND: " + extractWordTypeText(wordTypeElement.toString()));
+                Elements speechElement = doc.select("span.pr");
+                speechWord = extractTags(speechElement.toString());
+
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         TextView wordTypeTextView = findViewById(R.id.txt_wordtype_defndisplay);
                         wordTypeTextView.setText(wordType);
+
+                        TextView speechTextView = findViewById(R.id.txt_speech_defndisplay);
+                        speechTextView.setText("/ " + speechWord + "   /");
                     }
                 });
 
@@ -119,7 +125,6 @@ public class DefinitionDisplay extends AppCompatActivity {
         }
     }
 
-
     public void setAdapter(){
 
         recyclerView = findViewById(R.id.definition_recycler_view);
@@ -127,6 +132,14 @@ public class DefinitionDisplay extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new DefinitionRecyclerViewAdapter(definitionList);
         recyclerView.setAdapter(adapter);
+    }
+
+    private String extractTags(String string) {
+        System.out.println(string);
+        Pattern pattern = Pattern.compile("<span class=\"pr\">(.+?)</span>", Pattern.DOTALL);
+        Matcher matcher = pattern.matcher(string);
+        matcher.find();
+        return matcher.group(1);
     }
 
     public String extractDefinitionText(String string){
