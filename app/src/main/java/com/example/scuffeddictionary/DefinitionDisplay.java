@@ -17,6 +17,7 @@ import android.widget.TextView;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class DefinitionDisplay extends AppCompatActivity {
     ArrayList<String> definitionList = new ArrayList<String>();
     DefinitionRecyclerViewAdapter adapter;
     String word;
+    Definition definition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +49,10 @@ public class DefinitionDisplay extends AppCompatActivity {
 
         fillDefinitionComponents();
 
-        setAdapter();
-
-        Definition definition = new Definition(word);
+        definition = new Definition(word);
         definition.execute();
+
+        setAdapter();
     }
 
     private void fillDefinitionComponents() {
@@ -62,7 +64,9 @@ public class DefinitionDisplay extends AppCompatActivity {
 
     private class Definition extends AsyncTask<Void, Void, Void> {
 
+        String wordType;
         String word;
+
         public Definition(String word){
             this.word = word;
         }
@@ -81,6 +85,19 @@ public class DefinitionDisplay extends AppCompatActivity {
             try {
                 Document doc = Jsoup.connect(url).timeout(6000).get();
 
+                //get word type
+                Elements wordTypeElement = doc.select("a.important-blue-link");
+                wordType = extractWordTypeText(wordTypeElement.toString());
+                System.out.println("WORD TYPE IN DOINBACKGROUND: " + extractWordTypeText(wordTypeElement.toString()));
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView wordTypeTextView = findViewById(R.id.txt_wordtype_defndisplay);
+                        wordTypeTextView.setText(wordType);
+                    }
+                });
+
                 //get definition
                 Elements elements = doc.select("span.dtText");
 
@@ -94,13 +111,6 @@ public class DefinitionDisplay extends AppCompatActivity {
                     }
                 }
 
-                //get word type
-                Elements wordTypeElement = doc.select("a.important-blue-link");
-                String wordType = extractWordTypeText(wordTypeElement.toString());
-
-                ////////////////HERRRRRRRRRREEEEEEEEEEEEEEE
-                //some textview.setText(wordType); <----------
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -109,7 +119,9 @@ public class DefinitionDisplay extends AppCompatActivity {
         }
     }
 
+
     public void setAdapter(){
+
         recyclerView = findViewById(R.id.definition_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
