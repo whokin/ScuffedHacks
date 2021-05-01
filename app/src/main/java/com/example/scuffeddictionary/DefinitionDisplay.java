@@ -14,7 +14,7 @@ public class DefinitionDisplay extends AppCompatActivity {
         setContentView(R.layout.activity_definition_display);
 
         Intent intent = getIntent();
-        String word = intent.getStringExtra("SEARCH_WORD");
+        String word = intent.getStringExtra("DEFINITION");
 
         TextView definition = findViewById(R.id.result_txt);
 
