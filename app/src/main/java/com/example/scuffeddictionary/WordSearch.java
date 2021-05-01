@@ -17,6 +17,7 @@ public class WordSearch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_search);
+        getSupportActionBar().hide();
 
         searchWord = findViewById(R.id.search_txt);
         search = findViewById(R.id.search_button);

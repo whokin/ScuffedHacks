@@ -13,6 +13,8 @@ public class DefinitionDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_definition_display);
 
+        getSupportActionBar().hide();
+
         Intent intent = getIntent();
         String word = intent.getStringExtra("SEARCH_WORD");
 
