@@ -10,6 +10,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.scuffeddictionary.R;
+
 public class WordSearch extends AppCompatActivity {
 
     EditText searchWord;
@@ -33,15 +35,10 @@ public class WordSearch extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 word = searchWord.getText().toString();
-                definition = getDefinition(word);
                 Intent intent = new Intent(WordSearch.this, DefinitionDisplay.class);
-                intent.putExtra("DEFINITION", definition);
+                intent.putExtra("WORD", word);
                 startActivity(intent);
             }
         });
-    }
-
-    String getDefinition(String word){
-        return word;
     }
 }
