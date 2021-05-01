@@ -61,9 +61,9 @@
         android:id="@+id/txt_header_wordsearch"
         android:layout_width="0dp"
         android:layout_height="39dp"
+        android:text="Search For A Word"
         android:fontFamily="serif"
         android:gravity="center"
-        android:text="Search For A Word"
         android:textColor="#0F3750"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -71,5 +71,16 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="@+id/wordsearch_10_vert_guide"
         app:layout_constraintTop_toTopOf="@+id/wordsearch_30_horiz_guide" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_button"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/scuffed_definition" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
