@@ -68,15 +68,26 @@ public class DefinitionDisplay extends AppCompatActivity {
 
             try {
                 Document doc = Jsoup.connect(url).timeout(6000).get();
+
+                //get definition
                 Elements elements = doc.select("span.dtText");
 
                 for (int i = 0; i < elements.size(); i++){
-                    String definition = extractElementText(elements.get(i).toString());
+                    //use regex to extract definition
+                    String definition = extractDefinitionText(elements.get(i).toString());
 
-                    if (!definition.equals("no matches found")){
+                    //add to recyclerview
+                    if (!definition.equals("no matches")){
                         definitionList.add(definition);
                     }
                 }
+
+                //get word type
+                Elements wordTypeElement = doc.select("a.important-blue-link");
+                String wordType = extractWordTypeText(wordTypeElement.toString());
+
+                ////////////////HERRRRRRRRRREEEEEEEEEEEEEEE
+                //some textview.setText(wordType); <----------
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -94,18 +105,32 @@ public class DefinitionDisplay extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    public String extractElementText(String string){
+    public String extractDefinitionText(String string){
         Pattern definitionPattern = Pattern.compile("</strong>(.*?)</span>");
         Matcher matcher = definitionPattern.matcher(string);
         if (matcher.find())
         {
             if (matcher.group(1).contains("<") || matcher.group(1).contains(">") ){
-                return "no matches found";
+                return "no matches";
             }
             return(matcher.group(1));
         }
 
-        return "no matches found";
+        return "no matches";
+    }
+
+    public String extractWordTypeText(String string){
+        Pattern definitionPattern = Pattern.compile(">(.*?)</a>");
+        Matcher matcher = definitionPattern.matcher(string);
+        if (matcher.find())
+        {
+            if (matcher.group(1).contains("<") || matcher.group(1).contains(">") ){
+                return "no matches";
+            }
+            return(matcher.group(1));
+        }
+
+        return "no matches";
     }
 
 }
