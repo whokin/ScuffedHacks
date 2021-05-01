@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class WordSearch extends AppCompatActivity {
@@ -36,9 +37,14 @@ public class WordSearch extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 word = searchWord.getText().toString();
-                Intent intent = new Intent(WordSearch.this, DefinitionDisplay.class);
-                intent.putExtra("WORD", word);
-                startActivity(intent);
+                if(word.length() > 0){
+                    Intent intent = new Intent(WordSearch.this, DefinitionDisplay.class);
+                    intent.putExtra("WORD", word);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(WordSearch.this, "Please enter word to Scuffify", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -55,4 +61,9 @@ public class WordSearch extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        searchWord.setText("");
+    }
 }

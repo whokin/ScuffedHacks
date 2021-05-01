@@ -115,10 +115,9 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="432dp"
-        android:layout_height="106dp"
+        android:layout_width="446dp"
+        android:layout_height="87dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/wordsearch_90_horiz_guide"
         app:srcCompat="@drawable/scuffedcoingoodcopy" />

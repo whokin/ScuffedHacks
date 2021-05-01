@@ -49,8 +49,20 @@ public class DefinitionDisplay extends AppCompatActivity {
 
         fillDefinitionComponents();
 
-        definition = new Definition(word);
-        definition.execute();
+        if(!word.equals("scuffed")){
+            definition = new Definition(word);
+            definition.execute();
+        }else{
+            TextView wordTypeTextView = findViewById(R.id.txt_wordtype_defndisplay);
+            wordTypeTextView.setText("adjective");
+
+            TextView speechTextView = findViewById(R.id.txt_speech_defndisplay);
+            speechTextView.setText("/ skəffdtzdfadfe /");
+
+            definitionList.add("the theme of the best hackathon to ever have existed");
+            definitionList.add("this application");
+
+        }
 
         setAdapter();
     }
@@ -106,8 +118,13 @@ public class DefinitionDisplay extends AppCompatActivity {
 
                 //get definition
                 Elements elements = doc.select("span.dtText");
+                int elementsSize = elements.size();
 
-                for (int i = 0; i < elements.size(); i++){
+                if(elementsSize > 3){
+                    elementsSize = 3;
+                }
+
+                for (int i = 0; i < elementsSize; i++){
                     //use regex to extract definition
                     String definition = extractDefinitionText(elements.get(i).toString());
 
