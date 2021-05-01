@@ -7,21 +7,14 @@
     android:background="@drawable/scuffed_background"
     tools:context=".DefinitionDisplay">
 
-    <TextView
-        android:id="@+id/result_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=" "
-        app:layout_constraintBottom_toTopOf="@+id/wordsearch_30_horiz_guide"
-    />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/definition_recycler_view"
-        android:layout_width="389dp"
-        android:layout_height="453dp"
+        android:layout_width="307dp"
+        android:layout_height="376dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/wordsearch_90_vert_guide"
+        app:layout_constraintStart_toStartOf="@+id/wordsearch_10_vert_guide"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/wordsearch_10_vert_guide"
