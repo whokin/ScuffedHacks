@@ -10,6 +10,7 @@ import android.content.Intent;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 
 import org.jsoup.Jsoup;
@@ -18,13 +19,11 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static java.lang.String.valueOf;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.io.IOException;
-import java.io.InputStream;
 
 public class DefinitionDisplay extends AppCompatActivity {
 
@@ -69,10 +68,14 @@ public class DefinitionDisplay extends AppCompatActivity {
 
             try {
                 Document doc = Jsoup.connect(url).timeout(6000).get();
-                Elements elements = doc.getElementsByClass("dtText");
+                Elements elements = doc.select("span.dtText");
 
                 for (int i = 0; i < elements.size(); i++){
-                    definitionList.add(elements.get(i).toString());
+                    String definition = extractElementText(elements.get(i).toString());
+
+                    if (!definition.equals("no matches found")){
+                        definitionList.add(definition);
+                    }
                 }
 
             } catch (IOException e) {
@@ -89,6 +92,20 @@ public class DefinitionDisplay extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new DefinitionRecyclerViewAdapter(definitionList);
         recyclerView.setAdapter(adapter);
+    }
+
+    public String extractElementText(String string){
+        Pattern definitionPattern = Pattern.compile("</strong>(.*?)</span>");
+        Matcher matcher = definitionPattern.matcher(string);
+        if (matcher.find())
+        {
+            if (matcher.group(1).contains("<") || matcher.group(1).contains(">") ){
+                return "no matches found";
+            }
+            return(matcher.group(1));
+        }
+
+        return "no matches found";
     }
 
 }
