@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.scuffeddictionary.R;
 
 public class WordSearch extends AppCompatActivity {
 
@@ -41,4 +40,5 @@ public class WordSearch extends AppCompatActivity {
             }
         });
     }
+
 }
