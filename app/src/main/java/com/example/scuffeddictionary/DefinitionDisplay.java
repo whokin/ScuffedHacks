@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 
 import org.jsoup.Jsoup;
@@ -30,6 +31,7 @@ public class DefinitionDisplay extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<String> definitionList = new ArrayList<String>();
     DefinitionRecyclerViewAdapter adapter;
+    String word;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +43,21 @@ public class DefinitionDisplay extends AppCompatActivity {
         getSupportActionBar().hide();
 
         Intent intent = getIntent();
-        String word = intent.getStringExtra("WORD");
+        word = intent.getStringExtra("WORD");
+
+        fillDefinitionComponents();
 
         setAdapter();
 
         Definition definition = new Definition(word);
         definition.execute();
+    }
+
+    private void fillDefinitionComponents() {
+
+        TextView wordTextView = findViewById(R.id.txt_word_defndisplay);
+        wordTextView.setText(word.toLowerCase());
+
     }
 
     private class Definition extends AsyncTask<Void, Void, Void> {
