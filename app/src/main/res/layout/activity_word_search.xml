@@ -9,12 +9,11 @@
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="263dp"
-        android:layout_height="61dp"
+        android:layout_width="89dp"
+        android:layout_height="32dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/wordsearch_30_horiz_guide2"
         app:layout_constraintEnd_toStartOf="@+id/wordsearch_90_vert_guide"
-        app:layout_constraintHorizontal_bias="0.712"
-        app:layout_constraintStart_toStartOf="@+id/wordsearch_10_vert_guide"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/scuffeddate" />
 
