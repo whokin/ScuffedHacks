@@ -129,9 +129,12 @@ public class DefinitionDisplay extends AppCompatActivity {
 
                         String synonym = extractSynonym(synElements.toString());
 
-                        //if (synonym != "no matches"){
+                        if (synonym != "no matches"){
                             scuffedDefinition = scuffedDefinition + synonym + " ";
-                        //}
+                        }
+                        else{
+                            scuffedDefinition = scuffedDefinition + word + " ";
+                        }
                      }
 
                     scuffedDefinitionList.add(scuffedDefinition);
