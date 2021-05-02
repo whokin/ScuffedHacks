@@ -31,6 +31,7 @@ public class DefinitionDisplay extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ArrayList<String> definitionList = new ArrayList<String>();
+    ArrayList<String> scuffedDefinitionList = new ArrayList<String>();
     DefinitionRecyclerViewAdapter adapter;
     String word;
     Definition definition;
@@ -111,6 +112,31 @@ public class DefinitionDisplay extends AppCompatActivity {
                     }
                 }
 
+                for (int i = 0; i < definitionList.size(); i++){
+
+                    String words[] = definitionList.get(i).split(" ");
+                    String scuffedDefinition = "";
+
+                    //for each word per definition
+                    for (int j = 0; j < words.length; j++){
+
+                        String word = words[j];
+                        String thesaurusUrl = "https://www.merriam-webster.com/thesaurus/" + word + "/";
+                        Document document = Jsoup.connect(thesaurusUrl).get();
+
+                        //get definition
+                        Elements synElements = document.select("ul.mw-list");
+
+                        String synonym = extractSynonym(synElements.toString());
+
+                        //if (synonym != "no matches"){
+                            scuffedDefinition = scuffedDefinition + synonym + " ";
+                        //}
+                     }
+
+                    scuffedDefinitionList.add(scuffedDefinition);
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -125,7 +151,7 @@ public class DefinitionDisplay extends AppCompatActivity {
         recyclerView = findViewById(R.id.definition_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new DefinitionRecyclerViewAdapter(definitionList);
+        adapter = new DefinitionRecyclerViewAdapter(scuffedDefinitionList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -154,6 +180,16 @@ public class DefinitionDisplay extends AppCompatActivity {
             return(matcher.group(1));
         }
 
+        return "no matches";
+    }
+
+    public String extractSynonym(String string){
+        Pattern definitionPattern = Pattern.compile("thesaurus(.*)>(.*?)</a>");
+        Matcher matcher = definitionPattern.matcher(string);
+        if (matcher.find())
+        {
+            return matcher.group(2);
+        }
         return "no matches";
     }
 
