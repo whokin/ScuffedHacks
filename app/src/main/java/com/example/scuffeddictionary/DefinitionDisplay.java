@@ -118,13 +118,8 @@ public class DefinitionDisplay extends AppCompatActivity {
 
                 //get definition
                 Elements elements = doc.select("span.dtText");
-                int elementsSize = elements.size();
 
-                if(elementsSize > 3){
-                    elementsSize = 3;
-                }
-
-                for (int i = 0; i < elementsSize; i++){
+                for (int i = 0; i < elements.size(); i++){
                     //use regex to extract definition
                     String definition = extractDefinitionText(elements.get(i).toString());
 
