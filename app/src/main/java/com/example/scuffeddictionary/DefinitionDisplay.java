@@ -1,20 +1,15 @@
 package com.example.scuffeddictionary;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,15 +21,11 @@ import com.android.volley.toolbox.Volley;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static java.lang.String.valueOf;
 
 
 public class DefinitionDisplay extends AppCompatActivity {
@@ -44,6 +35,7 @@ public class DefinitionDisplay extends AppCompatActivity {
     DefinitionRecyclerViewAdapter adapter;
     String word;
     Definition definition;
+    String definitionStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +57,11 @@ public class DefinitionDisplay extends AppCompatActivity {
 
         setAdapter();
 
-        httpGET("chocolate");
+//        for(word :definitionList){
+//            httpGET(word);
+//        }
+//        System.out.println("The synonym of duck is " + Arrays.toString(getSynonym("duck")));
+
     }
 
     private void fillDefinitionComponents() {
@@ -140,6 +136,9 @@ public class DefinitionDisplay extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new DefinitionRecyclerViewAdapter(definitionList);
         recyclerView.setAdapter(adapter);
+
+//        String ogWord = definitionList.get(1);
+//        System.out.println("The scuffed up definition is " + scuffify(ogWord));
     }
 
     public String extractDefinitionText(String string){
@@ -170,14 +169,14 @@ public class DefinitionDisplay extends AppCompatActivity {
         return "no matches";
     }
 
-    private void  httpGET(String wordToSearch){
-//
+    private String[] getSynonym(String wordToSearch){
+        final String[] synonym = {""};
 
-// Instantiate the RequestQueue.
+        // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://words.bighugelabs.com/api/2/79ff02e5d9fe9541631c82d4a6d507e1/" + wordToSearch;
 
-// Request a string response from the provided URL.
+        // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -189,11 +188,17 @@ public class DefinitionDisplay extends AppCompatActivity {
                         int newLineIndex = response.indexOf("\n");
                         String first_line = response.substring(0, newLineIndex);
 
-                        String synonym = first_line.split("\\|")[2];
-                        Log.d("API", synonym);
+                        String syn = first_line.split("\n")[0].split("\\|")[2];
+                        Log.d("API", syn);
 
                         System.out.println("The first line is " + first_line + "\n");
-                        System.out.println("The syn is " + synonym + " are you coming from somewhere else?");
+                        System.out.println("The syn is " + syn + "\n");
+
+                        synonym[0] = syn;
+
+                        // store it somehow
+
+
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -205,11 +210,29 @@ public class DefinitionDisplay extends AppCompatActivity {
 
 // Add the request to the RequestQueue.
         queue.add(stringRequest);
+
+        return synonym;
     }
 
+    private String scuffify(String definition) {
+        String[] allWords = definition.toLowerCase().split(" ");
 
+        StringBuilder builder = new StringBuilder();
+        for(String syn : allWords) {
+            // Find synonym
+            if(!getSynonym(syn).toString().isEmpty()){
+                syn = getSynonym(syn).toString();
+            }
+            builder.append(syn);
+            builder.append(' ');
+        }
+
+        return builder.toString().trim();
+    }
 //    parse using | sep
 //    split on new line and remove until the actual synonym
 //    swap words
+
+
 
 }
