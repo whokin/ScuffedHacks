@@ -30,6 +30,7 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,7 +44,6 @@ public class DefinitionDisplay extends AppCompatActivity {
     DefinitionRecyclerViewAdapter adapter;
     String word;
     Definition definition;
-    TextView definition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class DefinitionDisplay extends AppCompatActivity {
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_definition_display);
-        definition = (TextView) findViewById(R.id.text); // TODO: change the ID
+//        definition = (TextView) findViewById(R.id.text); // TODO: change the ID
 
         getSupportActionBar().hide();
 
@@ -186,17 +186,15 @@ public class DefinitionDisplay extends AppCompatActivity {
                         Log.d("API", "Response is: "+ response);
 
                         // Parse the data
+                        int newLineIndex = response.indexOf("\n");
+                        String first_line = response.substring(0, newLineIndex);
 
+                        String synonym = first_line.split("\\|")[2];
+                        Log.d("API", synonym);
 
-                        // load this into class variable / container kind of stuff / text view
-//                        updateUI();
-//                        definition.text =
-
-
-
+                        System.out.println("The first line is " + first_line + "\n");
+                        System.out.println("The syn is " + synonym + " are you coming from somewhere else?");
                     }
-
-
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
