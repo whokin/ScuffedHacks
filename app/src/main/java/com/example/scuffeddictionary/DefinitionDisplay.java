@@ -45,20 +45,18 @@ public class DefinitionDisplay extends AppCompatActivity {
     DefinitionRecyclerViewAdapter adapter;
     String word;
     Definition definition;
-    TextView definition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-=======
 //        requestWindowFeature(Window.FEATURE_NO_TITLE);
 //        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_definition_display);
-        definition = (TextView) findViewById(R.id.text); // TODO: change the ID
->>>>>>> APIget
+//        definition = (TextView) findViewById(R.id.text); // TODO: change the ID
+
 
         setContentView(R.layout.activity_definition_display);
         getSupportActionBar().hide();
