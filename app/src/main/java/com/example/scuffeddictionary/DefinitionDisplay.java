@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 
 import android.os.AsyncTask;
@@ -14,7 +15,15 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -36,12 +45,20 @@ public class DefinitionDisplay extends AppCompatActivity {
     DefinitionRecyclerViewAdapter adapter;
     String word;
     Definition definition;
+    TextView definition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+=======
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_definition_display);
+        definition = (TextView) findViewById(R.id.text); // TODO: change the ID
+>>>>>>> APIget
 
         setContentView(R.layout.activity_definition_display);
         getSupportActionBar().hide();
@@ -67,6 +84,8 @@ public class DefinitionDisplay extends AppCompatActivity {
         }
 
         setAdapter();
+
+        httpGET("chocolate");
     }
 
     private void fillDefinitionComponents() {
@@ -188,5 +207,49 @@ public class DefinitionDisplay extends AppCompatActivity {
 
         return "no matches";
     }
+
+    private void  httpGET(String wordToSearch){
+//
+
+// Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://words.bighugelabs.com/api/2/79ff02e5d9fe9541631c82d4a6d507e1/" + wordToSearch;
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Display the first 500 characters of the response string.
+                        Log.d("API", "Response is: "+ response);
+
+                        // Parse the data
+
+
+                        // load this into class variable / container kind of stuff / text view
+//                        updateUI();
+//                        definition.text =
+
+
+
+                    }
+
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+//                textView.setText("That didn't work!");
+                Toast.makeText(DefinitionDisplay.this, error.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+
+//    parse using | sep
+//    split on new line and remove until the actual synonym
+//    swap words
 
 }
