@@ -45,6 +45,13 @@
         app:layout_constraintGuide_percent="0.25"/>
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/wordsearch_30_horiz_guide3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.18" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/wordsearch_45_horiz_guide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,6 +78,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.50" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/wordsearch_50_vert_guide2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
 
     <TextView
         android:id="@+id/txt_word_defndisplay"
@@ -115,16 +129,24 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="446dp"
+        android:layout_height="87dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/wordsearch_90_horiz_guide"
         app:srcCompat="@drawable/scuffedcoingoodcopy" />
+
+    <TextView
+        android:id="@+id/txt_speech_defndisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:textSize="18sp"
+        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/definition_recycler_view"
+        app:layout_constraintEnd_toStartOf="@+id/wordsearch_90_vert_guide"
+        app:layout_constraintStart_toStartOf="@+id/wordsearch_10_vert_guide"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
