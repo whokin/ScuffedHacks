@@ -4,17 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/scuffed_background"
+    android:background="@drawable/scuffster_background"
     tools:context=".WordSearch">
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="89dp"
         android:layout_height="32dp"
-        android:visibility="invisible"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/wordsearch_30_horiz_guide2"
-        app:layout_constraintEnd_toStartOf="@+id/wordsearch_90_vert_guide"
+        app:layout_constraintStart_toStartOf="@+id/wordsearch_10_vert_guide"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.52"
         app:srcCompat="@drawable/scuffeddate" />
 
     <EditText
@@ -78,9 +81,9 @@
         android:id="@+id/txt_header_wordsearch"
         android:layout_width="0dp"
         android:layout_height="39dp"
-        android:text="Search For A Word"
         android:fontFamily="serif"
         android:gravity="center"
+        android:text="Search For A Word"
         android:textColor="#0F3750"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -103,6 +106,7 @@
 
     <Button
         android:id="@+id/see_definition_btn"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="0dp"
         android:layout_height="51dp"
         android:layout_marginBottom="44dp"
@@ -110,7 +114,6 @@
         app:layout_constraintEnd_toStartOf="@+id/wordsearch_90_vert_guide"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/wordsearch_10_vert_guide"
-        style="?android:attr/borderlessButtonStyle"
         tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
