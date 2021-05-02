@@ -42,6 +42,7 @@ public class DefinitionDisplay extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ArrayList<String> definitionList = new ArrayList<String>();
+    ArrayList<String> scuffedDefinitionList = new ArrayList<String>();
     DefinitionRecyclerViewAdapter adapter;
     String word;
     Definition definition;
@@ -83,7 +84,6 @@ public class DefinitionDisplay extends AppCompatActivity {
 
         setAdapter();
 
-        httpGET("chocolate");
     }
 
     private void fillDefinitionComponents() {
@@ -148,6 +148,34 @@ public class DefinitionDisplay extends AppCompatActivity {
                     }
                 }
 
+                for (int i = 0; i < definitionList.size(); i++){
+
+                    String words[] = definitionList.get(i).split(" ");
+                    String scuffedDefinition = "";
+
+                    //for each word per definition
+                    for (int j = 0; j < words.length; j++){
+
+                        String word = words[j];
+                        String thesaurusUrl = "https://www.merriam-webster.com/thesaurus/" + word + "/";
+                        Document document = Jsoup.connect(thesaurusUrl).get();
+
+                        //get definition
+                        Elements synElements = document.select("ul.mw-list");
+
+                        String synonym = extractSynonym(synElements.toString());
+
+                        if (synonym != "no matches"){
+                            scuffedDefinition = scuffedDefinition + synonym + " ";
+                        }
+                        else{
+                            scuffedDefinition = scuffedDefinition + word + " ";
+                        }
+                     }
+
+                    scuffedDefinitionList.add(scuffedDefinition);
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -161,7 +189,7 @@ public class DefinitionDisplay extends AppCompatActivity {
         recyclerView = findViewById(R.id.definition_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new DefinitionRecyclerViewAdapter(definitionList);
+        adapter = new DefinitionRecyclerViewAdapter(scuffedDefinitionList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -201,48 +229,14 @@ public class DefinitionDisplay extends AppCompatActivity {
         return "no matches";
     }
 
-    private void  httpGET(String wordToSearch){
-//
-
-// Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://words.bighugelabs.com/api/2/79ff02e5d9fe9541631c82d4a6d507e1/" + wordToSearch;
-
-// Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.d("API", "Response is: "+ response);
-
-                        // Parse the data
-
-
-                        // load this into class variable / container kind of stuff / text view
-//                        updateUI();
-//                        definition.text =
-
-
-
-                    }
-
-
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-//                textView.setText("That didn't work!");
-                Toast.makeText(DefinitionDisplay.this, error.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-// Add the request to the RequestQueue.
-        queue.add(stringRequest);
+    public String extractSynonym(String string){
+        Pattern definitionPattern = Pattern.compile("thesaurus(.*)>(.*?)</a>");
+        Matcher matcher = definitionPattern.matcher(string);
+        if (matcher.find())
+        {
+            return matcher.group(2);
+        }
+        return "no matches";
     }
-
-
-//    parse using | sep
-//    split on new line and remove until the actual synonym
-//    swap words
 
 }
