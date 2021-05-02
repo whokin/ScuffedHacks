@@ -77,8 +77,8 @@ public class DefinitionDisplay extends AppCompatActivity {
             TextView speechTextView = findViewById(R.id.txt_speech_defndisplay);
             speechTextView.setText("/ skəffdtzdfadfe /");
 
-            definitionList.add("the theme of the best hackathon to ever have existed");
-            definitionList.add("this application");
+            scuffedDefinitionList.add("the theme of the best hackathon to ever have existed");
+            scuffedDefinitionList.add("this application");
 
         }
 
