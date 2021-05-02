@@ -148,7 +148,12 @@ public class DefinitionDisplay extends AppCompatActivity {
                     }
                 }
 
-                for (int i = 0; i < definitionList.size(); i++){
+                int definitionSize = definitionList.size();
+                if(definitionSize > 5){
+                    definitionSize = 5;
+                }
+
+                for (int i = 0; i < definitionSize; i++){
 
                     String words[] = definitionList.get(i).split(" ");
                     String scuffedDefinition = "";
@@ -172,8 +177,8 @@ public class DefinitionDisplay extends AppCompatActivity {
                             scuffedDefinition = scuffedDefinition + word + " ";
                         }
                      }
-
-                    scuffedDefinitionList.add(scuffedDefinition);
+                    int num = i + 1;
+                    scuffedDefinitionList.add("("+num+") " + scuffedDefinition);
                 }
 
             } catch (IOException e) {
