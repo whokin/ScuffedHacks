@@ -128,7 +128,7 @@
         app:srcCompat="@drawable/scuffed_saveas" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/img_ad_defndisplay"
         android:layout_width="446dp"
         android:layout_height="87dp"
         app:layout_constraintEnd_toEndOf="parent"

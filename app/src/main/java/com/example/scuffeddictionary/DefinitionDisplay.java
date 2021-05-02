@@ -12,8 +12,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,6 +92,17 @@ public class DefinitionDisplay extends AppCompatActivity {
 
         TextView wordTextView = findViewById(R.id.txt_word_defndisplay);
         wordTextView.setText(word.toLowerCase());
+
+        ImageView ad = findViewById(R.id.img_ad_defndisplay);
+        ad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Insert ad class here !!!
+
+            //    Intent intent = new Intent(DefinitionDisplay.this, .class);
+                //    startActivity(intent);
+            }
+        });
 
     }
 
